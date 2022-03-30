@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="LibraryMVCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="LibraryMVCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Registration">
           <Key>
             <PropertyRef Name="UserId" />
@@ -69,10 +69,23 @@
           <EntitySet Name="tblTransactions" EntityType="Self.tblTransactions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUsers" EntityType="Self.tblUsers" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LibraryMVCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Registration">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserGender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserDep" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserAdmNo" Type="Int32" />
+          <Property Name="UserEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserPass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="tblAdmin">
           <Key>
             <PropertyRef Name="AdminId" />
@@ -82,13 +95,17 @@
           <Property Name="AdminEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AdminPass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="LibraryMVCEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tblAdmins" EntityType="Self.tblAdmin" />
-          <EntitySet Name="tblTransactions" EntityType="LibraryMVCModel.tblTransaction" />
-          <EntitySet Name="tblBooks" EntityType="LibraryMVCModel.tblBook" />
-          <EntitySet Name="Registrations" EntityType="LibraryMVCModel.Registration" />
-          <EntitySet Name="tblUsers" EntityType="LibraryMVCModel.tblUser" />
-        </EntityContainer>
+        <EntityType Name="tblBook">
+          <Key>
+            <PropertyRef Name="BookId" />
+          </Key>
+          <Property Name="BookId" Type="Int32" Nullable="false" />
+          <Property Name="BookTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BookCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BookAuthor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BookCopies" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="tblTransaction">
           <Key>
             <PropertyRef Name="BookId" />
@@ -102,29 +119,6 @@
           <Property Name="UserId" Type="Int32" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="tblBook">
-          <Key>
-            <PropertyRef Name="BookId" />
-          </Key>
-          <Property Name="BookId" Type="Int32" Nullable="false" />
-          <Property Name="BookTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BookCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BookAuthor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BookCopies" Type="Int32" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Registration">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UserGender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UserDep" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UserAdmNo" Type="Int32" />
-          <Property Name="UserEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UserPass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="tblUser">
           <Key>
             <PropertyRef Name="UserId" />
@@ -137,12 +131,32 @@
           <Property Name="UserEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UserPass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityContainer Name="LibraryMVCEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Registrations" EntityType="Self.Registration" />
+          <EntitySet Name="tblAdmins" EntityType="Self.tblAdmin" />
+          <EntitySet Name="tblBooks" EntityType="Self.tblBook" />
+          <EntitySet Name="tblTransactions" EntityType="Self.tblTransaction" />
+          <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="LibraryMVCModelStoreContainer" CdmEntityContainer="LibraryMVCEntities">
+          <EntitySetMapping Name="Registrations">
+            <EntityTypeMapping TypeName="LibraryMVCModel.Registration">
+              <MappingFragment StoreEntitySet="Registration">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserGender" ColumnName="UserGender" />
+                <ScalarProperty Name="UserDep" ColumnName="UserDep" />
+                <ScalarProperty Name="UserAdmNo" ColumnName="UserAdmNo" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="UserPass" ColumnName="UserPass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblAdmins">
             <EntityTypeMapping TypeName="LibraryMVCModel.tblAdmin">
               <MappingFragment StoreEntitySet="tblAdmins">
@@ -153,55 +167,42 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblTransactions">
-            <EntityTypeMapping TypeName="LibraryMVCModel.tblTransaction">
-              <MappingFragment StoreEntitySet="tblTransactions">
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="TranDate" ColumnName="TranDate" />
-                <ScalarProperty Name="TranStatus" ColumnName="TranStatus" />
-                <ScalarProperty Name="BookISBN" ColumnName="BookISBN" />
-                <ScalarProperty Name="BookTitle" ColumnName="BookTitle" />
-                <ScalarProperty Name="BookId" ColumnName="BookId" />
-                <ScalarProperty Name="TranId" ColumnName="TranId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblBooks">
             <EntityTypeMapping TypeName="LibraryMVCModel.tblBook">
               <MappingFragment StoreEntitySet="tblBooks">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="BookCopies" ColumnName="BookCopies" />
-                <ScalarProperty Name="BookAuthor" ColumnName="BookAuthor" />
-                <ScalarProperty Name="BookCategory" ColumnName="BookCategory" />
-                <ScalarProperty Name="BookTitle" ColumnName="BookTitle" />
                 <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="BookTitle" ColumnName="BookTitle" />
+                <ScalarProperty Name="BookCategory" ColumnName="BookCategory" />
+                <ScalarProperty Name="BookAuthor" ColumnName="BookAuthor" />
+                <ScalarProperty Name="BookCopies" ColumnName="BookCopies" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Registrations">
-            <EntityTypeMapping TypeName="LibraryMVCModel.Registration">
-              <MappingFragment StoreEntitySet="Registration">
-                <ScalarProperty Name="UserPass" ColumnName="UserPass" />
-                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
-                <ScalarProperty Name="UserAdmNo" ColumnName="UserAdmNo" />
-                <ScalarProperty Name="UserDep" ColumnName="UserDep" />
-                <ScalarProperty Name="UserGender" ColumnName="UserGender" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <EntitySetMapping Name="tblTransactions">
+            <EntityTypeMapping TypeName="LibraryMVCModel.tblTransaction">
+              <MappingFragment StoreEntitySet="tblTransactions">
+                <ScalarProperty Name="TranId" ColumnName="TranId" />
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="BookTitle" ColumnName="BookTitle" />
+                <ScalarProperty Name="BookISBN" ColumnName="BookISBN" />
+                <ScalarProperty Name="TranStatus" ColumnName="TranStatus" />
+                <ScalarProperty Name="TranDate" ColumnName="TranDate" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblUsers">
             <EntityTypeMapping TypeName="LibraryMVCModel.tblUser">
               <MappingFragment StoreEntitySet="tblUsers">
-                <ScalarProperty Name="UserPass" ColumnName="UserPass" />
-                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
-                <ScalarProperty Name="UserAdmNo" ColumnName="UserAdmNo" />
-                <ScalarProperty Name="UserDep" ColumnName="UserDep" />
-                <ScalarProperty Name="UserGender" ColumnName="UserGender" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserGender" ColumnName="UserGender" />
+                <ScalarProperty Name="UserDep" ColumnName="UserDep" />
+                <ScalarProperty Name="UserAdmNo" ColumnName="UserAdmNo" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="UserPass" ColumnName="UserPass" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
