@@ -61,7 +61,6 @@ namespace LibraryMSMVC.Controllers
             transaction.TranStatus = "Rejected";
             transaction.TranDate = DateTime.Now.ToShortDateString();
             tblBook book = adminTransactiondb.tblBooks.FirstOrDefault(b => b.BookId == transaction.BookId);
-            book.BookCopies = book.BookCopies + 1;
             adminTransactiondb.SaveChanges();
             adminTransactiondb.SaveChanges();
             return View("Requests");
