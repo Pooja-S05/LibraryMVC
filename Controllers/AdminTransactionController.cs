@@ -110,20 +110,6 @@ namespace LibraryMSMVC.Controllers
             adminTransactiondb.SaveChanges();
             return View("Return");
         }
-        // Returns admin home view.
-        public ActionResult AdminHome()
-        {
-            return View();
-        }
-        // Returns admin about view.
-        public ActionResult AdminAbout()
-        {
-            return View();
-        }
-        // Returns admin contact view.
-        public ActionResult AdminContact()
-        {
-            return View();
-        }
+       
     }
 }
