@@ -36,23 +36,6 @@ namespace LibraryMSMVC.Controllers
             return View(tblUserdb.tblBooks.ToList());
         }
 
-        // Returns user home view.
-        public ActionResult UserHome()
-        {
-            return View();
-        }
-
-        // Returns user about view.
-        public ActionResult UserAbout()
-        {
-            return View();
-        }
-
-        // Returns user contact view.
-        public ActionResult UserContact()
-        {
-            return View();
-        }
 
         // Navbar menus.
         // Redirected to index view of borrow controller with user id and username.
