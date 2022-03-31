@@ -90,33 +90,6 @@ namespace LibraryMSMVC.Controllers
             return View(rejectedList.ToList());
         }
 
-        // Rerequest book request, redirected to rejected
-        public ActionResult RerequestRejected(int? tranId)
-        {
-            /*try
-            {*/
-            if (tranId == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            tblTransaction transaction = Transactiondb.tblTransactions.FirstOrDefault(t => t.TranId == tranId);
-            if (transaction == null)
-            {
-                return HttpNotFound();
-            }
-            transaction.TranStatus = "Requested";
-            transaction.TranDate = DateTime.Now.ToShortDateString();
-            tblBook book = Transactiondb.tblBooks.FirstOrDefault(b => b.BookId == transaction.BookId);
-            book.BookCopies = book.BookCopies - 1;
-            Transactiondb.SaveChanges();
-            Transactiondb.SaveChanges();
-            return RedirectToAction("Rejected", "UserTransaction", new { userId = userId });
-            /*}
-            catch (Exception)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }*/
-        }
 
         // Cancel book request, redirected to rejected
         public ActionResult CancelRejected(int? tranId)
